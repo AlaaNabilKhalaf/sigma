@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigma/splash_screen/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sigma/views/login_view.dart';
 import 'cubit/bloc_observer/bloc_observer.dart';
 import 'cubit/layout_cubit/layout_cubit.dart';
 import 'cubit/layout_cubit/layout_states.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
                   ],
                   supportedLocales: const [Locale('en'), Locale('ar')],
                   debugShowCheckedModeBanner: false,
-                  home: const SplashScreen(),
+                  home: const LoginView(),
                 );
               },
             );
