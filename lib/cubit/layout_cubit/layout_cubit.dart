@@ -55,7 +55,9 @@ class LayoutCubit extends Cubit<LayoutStates> {
   // }
 
   //Home Screen UI Items
-  File? image;
+
+
+  // File? image;
 
   // Future pickImage() async {
   //   emit(ImagePickerLoadingState());
