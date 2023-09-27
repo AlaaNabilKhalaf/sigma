@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigma/views/login_view.dart';
-import 'package:sigma/views/splash_view.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text.dart';
 import '../../../constance.dart';
 import '../../../generated/l10n.dart';
+import '../../reset_password_view.dart';
 
 class LanguageIcon extends StatelessWidget {
   const LanguageIcon({super.key});
@@ -33,20 +32,15 @@ class NavigatorIconForResetPassView extends StatelessWidget {
           height: 10,
         ),
         onChanged: (String? value) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                  const LoginView()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
         },
         items: [
           DropdownMenuItem(
               value: '0',
-              child: CustomText(text: "logout", fontSize: 15, textColor: blackColor,)
+              child: CustomText(text: lang.LogOut, fontSize: 15, textColor: blackColor,)
           ),
         ],
       );
-    //Icon(Icons. , color: whiteColor, size: 30);
   }
 }
 
@@ -72,9 +66,11 @@ class NavigatorIcon extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                    const LoginView()));
+                    const ResetPasswordView()));
           }
-          else{Navigator.push(context, MaterialPageRoute(builder: (context)=> SplashScreen()));}
+          else{
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
+          }
         },
         items: [
           DropdownMenuItem(
@@ -89,10 +85,9 @@ class NavigatorIcon extends StatelessWidget {
                     borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(15)),
                   ),
-                  child: CustomText(text: "log Out", fontSize: 15, textColor: blackColor,))
+                  child: CustomText(text: lang.LogOut, fontSize: 15, textColor: blackColor,))
           ),
         ],
       );
-    //Icon(Icons. , color: whiteColor, size: 30);
   }
 }

@@ -29,7 +29,7 @@ final double width ;
             primeColor2
           ],
         ),
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(24.r),
       ),
       height: height.h,
       width: width.w,

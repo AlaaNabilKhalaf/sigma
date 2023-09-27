@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Something went wrong try again"),
         "GoToLogin": MessageLookupByLibrary.simpleMessage("Go To Login"),
         "LangLab": MessageLookupByLibrary.simpleMessage("العربية"),
+        "LogOut": MessageLookupByLibrary.simpleMessage("Logout"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "LoginPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "LoginPasswordHint":
