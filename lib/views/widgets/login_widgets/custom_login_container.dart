@@ -44,9 +44,43 @@ class CustomLoginContainer extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50.w),
                   child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeView() ));
-                    },
+                    onTap: () async {
+                        if (cubit.loginPasswordController.text.isNotEmpty &&
+                            cubit.uniEmailController.text.isNotEmpty)
+                        {
+                          try{
+                            await cubit.login(
+                                uniEmail: cubit.uniEmailController.text,
+                                password: cubit.loginPasswordController.text);
+                          }catch (e) {
+                            cubit.loginMassage =lang.SomethingWentWrong;
+                          }
+                          if (cubit.loginMassage == "Logged in successfully")
+                          {
+                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              duration: const Duration(seconds: 1),
+                              content: Center(child: Text(cubit.loginMassage!)),
+                            ));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeView()));
+                          }
+                          else {
+                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Center(child: Text(cubit.loginMassage!)),
+                            ));
+                          }
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Center(
+                                child: Text(
+                                    lang.LoginValidationMassage)),
+                          ));
+                        }
+                      },
+
                     child: CustomButtonChild(
                         title: lang.Login,
                         fontSize: 30,

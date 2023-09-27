@@ -48,28 +48,6 @@ class LayoutCubit extends Cubit<LayoutStates> {
     emit(LoginPasswordVisibilityChanged());
   }
 
-  // navToHomeScreen(BuildContext context) {
-  //   Navigator.push(
-  //       context, MaterialPageRoute(builder: (context) => const SplashScreen()));
-  //   emit(NavToHomeScreenState());
-  // }
-
-  //Home Screen UI Items
-
-
-  // File? image;
-
-  // Future pickImage() async {
-  //   emit(ImagePickerLoadingState());
-  //   final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   emit(ImagePickedState());
-  //   if (image == null) return;
-  //   final imageTemporary = File(image.path);
-  //   this.image = imageTemporary;
-  //   emit(ImageReturnedState());
-  //   return image;
-  // }
-
   //ApI Methods
 
 // Login Method Items
