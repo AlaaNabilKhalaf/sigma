@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/splash_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sigma/views/login_view.dart';
 import 'cubit/bloc_observer/bloc_observer.dart';
 import 'cubit/layout_cubit/layout_cubit.dart';
 import 'cubit/layout_cubit/layout_states.dart';
@@ -21,6 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // This Method is controlling the status bar appearance.
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -45,10 +44,10 @@ class MyApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (context, child) {
+
             // MaterialApp is the root of my app.
                 return  MaterialApp(
-
-                  locale: cubit.myCurrentLang,
+                  locale:cubit.myCurrentLang,
                   localizationsDelegates: const [
                     S.delegate,
                     GlobalMaterialLocalizations.delegate,
@@ -57,7 +56,7 @@ class MyApp extends StatelessWidget {
                   ],
                   supportedLocales: const [Locale('en'), Locale('ar')],
                   debugShowCheckedModeBanner: false,
-                  home: const LoginView(),
+                  home: const SplashView(),
                 );
               },
             );

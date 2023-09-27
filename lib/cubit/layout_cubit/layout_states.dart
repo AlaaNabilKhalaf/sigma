@@ -30,6 +30,8 @@ class LoginFailureState extends LayoutStates{}
 class ResetPasswordLoadingState extends LayoutStates{}
 class ResetPasswordSuccessState extends LayoutStates{}
 class ResetPasswordFailureState extends LayoutStates{}
+class UserIsLoggingOutState extends LayoutStates{}
+class ControllersAreCleanState extends LayoutStates{}
 
 
 //Languages

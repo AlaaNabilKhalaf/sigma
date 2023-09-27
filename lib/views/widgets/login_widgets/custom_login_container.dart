@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,9 +35,9 @@ class CustomLoginContainer extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 60.h,),
-                CustomText(text: lang.UniEmail, fontSize: 20 , textColor: blackColor,),
+                CustomText(text: lang.UniEmail, fontSize: cubit.isEnglish()? 20 : 19,textColor: blackColor,),
                 CustomTextField(controller: cubit.uniEmailController,),
-                CustomText(text: lang.LoginPassword, fontSize: 20 , textColor: blackColor,),
+                CustomText(text: lang.LoginPassword, fontSize:cubit.isEnglish()? 20 : 19, textColor: blackColor,),
                 CustomTextField(controller: cubit.loginPasswordController,),
                 SizedBox(height: 30.h,),
                 Padding(
@@ -62,7 +61,7 @@ class CustomLoginContainer extends StatelessWidget {
                               duration: const Duration(seconds: 1),
                               content: Center(child: Text(cubit.loginMassage!)),
                             ));
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeView()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomeView()));
                           }
                           else {
                             ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -83,7 +82,7 @@ class CustomLoginContainer extends StatelessWidget {
 
                     child: CustomButtonChild(
                         title: lang.Login,
-                        fontSize: 30,
+                        fontSize: cubit.isEnglish()? 30 : 23,
                         width: 180,
                         height: 60,
                     ),

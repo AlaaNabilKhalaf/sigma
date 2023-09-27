@@ -34,6 +34,7 @@ final double width ;
       height: height.h,
       width: width.w,
       child: CustomText(
+        textAlign: TextAlign.center,
         textColor: whiteColor,
         text: title,
         fontSize: fontSize,

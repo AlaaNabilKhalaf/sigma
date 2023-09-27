@@ -10,7 +10,7 @@ import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_upper_container.dart';
-import 'package:sigma/views/widgets/sheared_widgets/some_icons.dart';
+import 'package:sigma/views/widgets/sheared_widgets/some_custom_icons.dart';
 
 import '../../../generated/l10n.dart';
 
@@ -100,7 +100,11 @@ class ResetPasswordViewBody extends StatelessWidget {
                           }
                         }
                       },
-                      child: CustomButtonChild(title: lang.ResetPassword, fontSize: 30, width: 300.w, height: 60)),
+                      child: CustomButtonChild(
+                          title: lang.ResetPassword,
+                          fontSize: cubit.isEnglish()? 30 : 23,
+                          width: 300.w,
+                          height: 60)),
                 ],
               ),
             ),

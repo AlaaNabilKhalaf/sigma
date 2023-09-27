@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,7 @@ import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/scanner_view.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_upper_container.dart';
-import 'package:sigma/views/widgets/sheared_widgets/some_icons.dart';
+import 'package:sigma/views/widgets/sheared_widgets/some_custom_icons.dart';
 import '../../../generated/l10n.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -39,7 +38,7 @@ class HomeViewBody extends StatelessWidget {
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> QrScanner(userId: cubit.userId!)));
                       },
-                      child: CustomButtonChild(title: lang.QrScanner, fontSize:30 , width: 250.w, height: 56)),
+                      child: CustomButtonChild(title: lang.QrScanner, fontSize:cubit.isEnglish() ? 30 : 28 , width: 250.w, height: 56)),
                 ],
               ),
             ),
