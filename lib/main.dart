@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sigma/splash_screen/splash_screen.dart';
+import 'package:sigma/views/home_view.dart';
+import 'package:sigma/views/splash_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sigma/views/login_view.dart';
 import 'cubit/bloc_observer/bloc_observer.dart';
@@ -31,20 +32,22 @@ class MyApp extends StatelessWidget {
           BlocProvider<LayoutCubit>(
             create: (context) => LayoutCubit(),
           ),
-
         ],
-
-        // ScreenUtilInit is creating the app responsiveness
+    // BlocConsumer is used to access the data in the called cubit.
         child: BlocConsumer<LayoutCubit , LayoutStates>(
           listener: (context , state ){},
           builder: (context , state){
             final cubit = BlocProvider.of<LayoutCubit>(context);
+
+            // ScreenUtilInit is creating the app responsiveness
             return ScreenUtilInit(
               designSize: const Size(390, 844),
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (context, child) {
+            // MaterialApp is the root of my app.
                 return  MaterialApp(
+
                   locale: cubit.myCurrentLang,
                   localizationsDelegates: const [
                     S.delegate,

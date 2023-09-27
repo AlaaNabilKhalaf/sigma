@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigma/constance.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
+import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
 
@@ -42,12 +43,16 @@ class CustomLoginContainer extends StatelessWidget {
                 SizedBox(height: 30.h,),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50.w),
-                  child: CustomButton(
-                      title: lang.Login,
-                      fontSize: 30,
-                      width: 180,
-                      height: 60,
-                      fun: () {},
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeView() ));
+                    },
+                    child: CustomButtonChild(
+                        title: lang.Login,
+                        fontSize: 30,
+                        width: 180,
+                        height: 60,
+                    ),
                   ),
                 )
               ],

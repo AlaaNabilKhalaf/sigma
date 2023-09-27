@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sigma/splash_screen/splash_screen.dart';
+import 'package:sigma/views/splash_view.dart';
 import '../../local_network/local_network.dart';
 import 'layout_states.dart';
 import 'dart:io';
