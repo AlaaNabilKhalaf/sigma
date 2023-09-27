@@ -29,16 +29,19 @@ class HomeViewBody extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: Column(
-              children: [
-                Image.asset("assets/images/4137379-removebg-preview 1.png"),
-                SizedBox(height: 10.h,),
-                GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> QrScanner(userId: cubit.userId!)));
-                    },
-                    child: CustomButtonChild(title: lang.QrScanner, fontSize:30 , width: 250.w, height: 56)),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 15.h,),
+                  Image.asset("assets/images/4137379-removebg-preview 1.png"),
+                  SizedBox(height: 10.h,),
+                  GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> QrScanner(userId: cubit.userId!)));
+                      },
+                      child: CustomButtonChild(title: lang.QrScanner, fontSize:30 , width: 250.w, height: 56)),
+                ],
+              ),
             ),
           )
         ],

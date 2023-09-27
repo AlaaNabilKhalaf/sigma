@@ -73,27 +73,19 @@ class _QrScannerState extends State<QrScanner> {
     try {
       Response response = await http.post(
           Uri.parse(
-              'https://sigmaa.ebdaa-business.com/api/mobile_api/add_attendance?lecture_id=${lecId(barcode!.code.toString())}&student_id=${widget.userId}'),
+              'https://sigma.ebdaa-business.com/api/mobile_api/add_attendance?lecture_id=${lecId(barcode!.code.toString())}&student_id=${widget.userId}'),
           headers: {
             'accept': 'application/json',
             'User': 'admin',
             'apikey': 'apikey',
           });
       Map<String, dynamic> data = jsonDecode(response.body);
-      if (response.statusCode == 200) {
         var lectureId = lecId(barcode!.code.toString());
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: const Duration(seconds: 2),
           content: Center(child: Text('${data["message"]}')),
         ));
-      } else {
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: const Duration(seconds: 2),
-          content: Center(child: Text('${data["message"]}')),
-        ));
-      }
     } catch (e) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
