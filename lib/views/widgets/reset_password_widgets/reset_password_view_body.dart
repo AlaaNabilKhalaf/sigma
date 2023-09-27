@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sigma/constance.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
@@ -44,8 +44,61 @@ class ResetPasswordViewBody extends StatelessWidget {
                   CustomTextField(controller: cubit.newPassConController ),
                   SizedBox(height: 65.h,),
                   GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> DoneView()));
+                      onTap: () async {
+                        if (cubit.oldPassController.text.isEmpty ||
+                            cubit.newPassController.text.isEmpty ||
+                            cubit.newPassConController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar( SnackBar(
+                            duration: const Duration(seconds: 3),
+                            content:
+                            Center(child: Text(lang.AllFieldsRequired)),
+                          ));
+                        } else if (cubit.newPassController.text !=
+                            cubit.newPassConController.text) {
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar( SnackBar(
+                            duration: const Duration(seconds: 3),
+                            content: Center(
+                                child: Text(lang.NewPasswordsDoNotMatch)),
+                          ));
+                        } else if (cubit.newPassController.text ==
+                            cubit.newPassConController.text &&
+                            cubit.oldPassController.text.isNotEmpty) {
+                          try{
+                            await cubit.resetPassword(
+                                oldPassword: cubit.oldPassController.text,
+                                newPassword: cubit.newPassController.text);
+                          }catch (e) {
+                            cubit.passMassage = lang.SomethingWentWrong;
+                          }
+                          if (cubit.passMassage == "password has been changed") {
+                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const DoneView()));
+                          } else {
+                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                            Alert(
+                              context: context,
+                              type: AlertType.warning,
+                              title: lang.OPS,
+                              desc: cubit.passMassage,
+                              buttons: [
+                                DialogButton(
+                                  color: primeColor1,
+                                  onPressed: () => Navigator.pop(context),
+                                  width: 125.w,
+                                  child: Text(
+                                    lang.OK,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25.sp),
+                                  ),
+                                )
+                              ],
+                            ).show();
+                          }
+                        }
                       },
                       child: CustomButtonChild(title: lang.ResetPassword, fontSize: 30, width: 300.w, height: 60)),
                 ],
