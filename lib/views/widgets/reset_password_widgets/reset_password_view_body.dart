@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigma/constance.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
+import 'package:sigma/views/done_view.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
@@ -41,7 +43,11 @@ class ResetPasswordViewBody extends StatelessWidget {
                   CustomText(text: lang.ConNewPassWord, fontSize: 18, textColor: blackColor),
                   CustomTextField(controller: cubit.newPassConController ),
                   SizedBox(height: 65.h,),
-                  CustomButtonChild(title: lang.ResetPassword, fontSize: 30, width: 300.w, height: 60),
+                  GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> DoneView()));
+                      },
+                      child: CustomButtonChild(title: lang.ResetPassword, fontSize: 30, width: 300.w, height: 60)),
                 ],
               ),
             ),
