@@ -9,9 +9,8 @@ import '../constance/colors.dart';
 import '../generated/l10n.dart';
 
 class QrScanner extends StatefulWidget {
-  QrScanner({super.key, required this.userId});
+ const QrScanner({super.key, required this.userId,});
   final int userId;
-  String? mass;
 
   @override
   State<QrScanner> createState() => _QrScannerState();
@@ -80,24 +79,15 @@ class _QrScannerState extends State<QrScanner> {
             'apikey': 'apikey',
           });
       Map<String, dynamic> data = jsonDecode(response.body);
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: const Duration(seconds: 2),
-          content: Center(child: Text('${data["message"]}')),
-        ));
+      tryFun('${data["message"]}');
     } catch (e) {
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: const Duration(seconds: 3),
-        content: Center(child: Text(S.of(context).Error)),
-      ));
+    catchFun();
     }
   }
 
   String lecId(String s) {
     String s = barcode!.code.toString();
     String id = s.replaceAll(RegExp('[^0-9]'), '');
-    debugPrint('lecture id issssssssssss$id');
     return id;
   }
 
@@ -105,9 +95,9 @@ class _QrScannerState extends State<QrScanner> {
     setState(
           () => this.controller = controller,
     );
-    controller.scannedDataStream.listen((barcod) {
+    controller.scannedDataStream.listen((barcode) {
       setState(() {
-        barcode = barcod;
+        barcode = barcode;
         qrGenerator();
       });
     });
@@ -171,4 +161,20 @@ class _QrScannerState extends State<QrScanner> {
       ],
     ),
   );
+
+  catchFun(){
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 3),
+      content: Center(child: Text(S.of(context).Error)),
+    ));
+  }
+
+  tryFun(String text){
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 2),
+      content: Center(child: Text(text)),
+    ));
+  }
 }

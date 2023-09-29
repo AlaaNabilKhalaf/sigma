@@ -168,8 +168,8 @@ class ApiMethodsCubit extends Cubit{
 // void onQRViewCreated(QRViewController controller) {
 //   this.controller = controller;
 //   emit(ControllerInitialed());
-//   controller.scannedDataStream.listen((barcod){
-//     barcode = barcod ;
+//   controller.scannedDataStream.listen((barcode){
+//     barcode = barcode ;
 //     qrGenerator() ;
 //     emit(SendAttendanceLoadingState());
 //   } );
