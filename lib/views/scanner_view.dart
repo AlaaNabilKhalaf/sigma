@@ -80,7 +80,6 @@ class _QrScannerState extends State<QrScanner> {
             'apikey': 'apikey',
           });
       Map<String, dynamic> data = jsonDecode(response.body);
-        var lectureId = lecId(barcode!.code.toString());
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: const Duration(seconds: 2),
