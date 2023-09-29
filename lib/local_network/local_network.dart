@@ -26,10 +26,12 @@ class CacheNetwork{
   }
 
 
-  //
-  // static Future<bool> deleteCacheItem ({required String key}) async {
-  //   return await sharedPref.remove(key);
-  // }
+  static int getCacheId ({required String key}){
+    return sharedPref.getInt(key) ?? 0 ;
+  }
+  static Future<bool> deleteCacheItem ({required String key}) async {
+    return await sharedPref.remove(key);
+  }
 
 
 }

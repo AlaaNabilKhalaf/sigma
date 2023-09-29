@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/login_view.dart';
+
+import '../constances/id.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -9,22 +13,23 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   @override
-  void initState(){
-
-    Future.delayed(const Duration(seconds:3),(){
-
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context)=> const LoginView()));
+  void initState() {
 
 
-    });
-
-
+startTime();
 
     super.initState();
   }
+startTime() async {
+  Future.delayed(const Duration(seconds:3),(){
 
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context)=>  id != null && id != 0 ? const HomeView() : const LoginView()));
+
+
+  });
+}
   @override
   Widget build(BuildContext context) {
 return Scaffold(

@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/splash_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'constances/id.dart';
 import 'cubit/bloc_observer/bloc_observer.dart';
 import 'cubit/layout_cubit/layout_cubit.dart';
 import 'cubit/layout_cubit/layout_states.dart';
 import 'generated/l10n.dart';
+import 'local_network/local_network.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+await CacheNetwork.cacheInitialization();
+id = CacheNetwork.getCacheId(key: "student_id");
+print("id isssssssssssssssssssssssss : $id");
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
+import 'package:sigma/local_network/local_network.dart';
 import 'package:sigma/views/login_view.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text.dart';
 import '../../../constance.dart';
@@ -53,6 +54,7 @@ class NavigatorIconForResetPassView extends StatelessWidget {
       iconSize: 30,
       onSelected: (value){
         if(value == _OptionsForResetPass.one){
+          ()async{ await  CacheNetwork.deleteCacheItem(key: "student_id"); };
          cubit.logoutFunction();
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
         }
@@ -108,6 +110,7 @@ class NavigatorIcon extends StatelessWidget {
                     const ResetPasswordView()));
           }
           else{
+            ()async{ await  CacheNetwork.deleteCacheItem(key: "student_id"); };
             cubit.logoutFunction();
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
           }

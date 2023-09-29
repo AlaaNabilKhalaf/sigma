@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../local_network/local_network.dart';
 import 'layout_states.dart';
 import 'package:http/http.dart%20';
@@ -77,12 +78,13 @@ class LayoutCubit extends Cubit<LayoutStates> {
       loginMassage = data["message"];
       userId = data["student_id"];
 
-      CacheNetwork.insertToValueID(
+     await CacheNetwork.insertToValueID(
         key: 'student_id',
         value: data['student_id'],
       );
-      CacheNetwork.insertToValueName(
-          key: "student_name", value: data["student_name"]);
+     await CacheNetwork.insertToValueName(
+          key: "student_name",
+          value: data["student_name"]);
       theKey = 'student_id';
       emit(LoginSuccessState());
     } else {
@@ -121,19 +123,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     }
   }
 
-  logoutFunction(){
-    loginPasswordController.text = "";
-    uniEmailController.text = "" ;
-    emit(UserIsLoggingOutState());
-  }
-cleanControllersFunctions(){
-  loginPasswordController.text = "";
-  uniEmailController.text = "" ;
-  oldPassController.text = "";
-  newPassController.text = "";
-  newPassConController.text = "";
-  emit(ControllersAreCleanState());
-}
+
 // Localizations Items
   String theLangKey = 'current_lang' ;
   Locale myCurrentLang = const Locale("en") ;
@@ -162,6 +152,24 @@ cleanControllersFunctions(){
 
   }
 
+  // Logout Methods
+
+  logoutFunction() async {
+    loginPasswordController.text = "";
+    uniEmailController.text = "" ;
+    SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    sharedPref.remove('student_id');
+    emit(UserIsLoggingOutState());
+  }
+
+  cleanControllersFunctions(){
+    loginPasswordController.text = "";
+    uniEmailController.text = "" ;
+    oldPassController.text = "";
+    newPassController.text = "";
+    newPassConController.text = "";
+    emit(ControllersAreCleanState());
+  }
 }
 
 
