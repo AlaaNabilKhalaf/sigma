@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:sigma/constance.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/done_view.dart';
@@ -12,6 +11,7 @@ import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_upper_container.dart';
 import 'package:sigma/views/widgets/sheared_widgets/some_custom_icons.dart';
 
+import '../../../constance/colors.dart';
 import '../../../generated/l10n.dart';
 
 class ResetPasswordViewBody extends StatelessWidget {
@@ -19,9 +19,9 @@ class ResetPasswordViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<LayoutCubit>(context);
+    final lang = S.of(context);
     return BlocConsumer<LayoutCubit , LayoutStates>(builder: (context , state ){
-      final cubit = BlocProvider.of<LayoutCubit>(context);
-      final lang = S.of(context);
       return SingleChildScrollView(
         child: Column(
           children: [
@@ -51,7 +51,8 @@ class ResetPasswordViewBody extends StatelessWidget {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context)
                               .showSnackBar( SnackBar(
-                            duration: const Duration(seconds: 3),
+                            backgroundColor: primeColor1,
+                            duration: const Duration(seconds: 1),
                             content:
                             Center(child: Text(lang.AllFieldsRequired)),
                           ));
@@ -60,48 +61,23 @@ class ResetPasswordViewBody extends StatelessWidget {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context)
                               .showSnackBar( SnackBar(
-                            duration: const Duration(seconds: 3),
+                            backgroundColor: primeColor1,
+                            duration: const Duration(seconds: 1),
                             content: Center(
                                 child: Text(lang.NewPasswordsDoNotMatch)),
                           ));
                         } else if (cubit.newPassController.text ==
                             cubit.newPassConController.text &&
                             cubit.oldPassController.text.isNotEmpty) {
-                          try{
+
                             await cubit.resetPassword(
                                 oldPassword: cubit.oldPassController.text,
                                 newPassword: cubit.newPassController.text);
-                          }catch (e) {
-                            cubit.passMassage = lang.SomethingWentWrong;
-                          }
-                          if (cubit.passMassage == "password has been changed") {
-                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const DoneView()));
-                          } else {
-                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                            Alert(
-                              context: context,
-                              type: AlertType.warning,
-                              title: lang.OPS,
-                              desc: cubit.passMassage,
-                              buttons: [
-                                DialogButton(
-                                  color: primeColor1,
-                                  onPressed: () => Navigator.pop(context),
-                                  width: 125.w,
-                                  child: Text(
-                                    lang.OK,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25.sp),
-                                  ),
-                                )
-                              ],
-                            ).show();
-                          }
+
                         }
                       },
                       child: CustomButtonChild(
-                          title: lang.ResetPassword,
+                          title: state is ResetPasswordLoadingState ? lang.Loading : lang.ResetPassword,
                           fontSize: cubit.isEnglish()? 30 : 23,
                           width: 300.w,
                           height: 60)),
@@ -112,6 +88,60 @@ class ResetPasswordViewBody extends StatelessWidget {
         ),
       );
     },
-        listener: (context , state){});
+        listener: (context , state){
+      if(state is ResetPasswordSuccessState){
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const DoneView()));
+      }
+      if(state is ResetPasswordLoadingState){
+        showDialog(context: context, builder: (context)=> AlertDialog(
+          content: Text(lang.Loading),
+        ));
+      }
+      if(state is ResetPasswordFailureState){
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        Alert(
+          context: context,
+          type: AlertType.warning,
+          title: lang.OPS,
+          desc: state.massage,
+          buttons: [
+            DialogButton(
+              color: primeColor1,
+              onPressed: () => Navigator.pop(context),
+              width: 125.w,
+              child: Text(
+                lang.OK,
+                style: TextStyle(
+                    color: Colors.white, fontSize: 25.sp),
+              ),
+            )
+          ],
+        ).show();
+      }
+      if(state is ResetPasswordCatchFailureState){
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: lang.OPS,
+          desc: lang.SomethingWentWrong,
+          buttons: [
+            DialogButton(
+              color: primeColor1,
+              onPressed: () => Navigator.pop(context),
+              width: 125.w,
+              child: Text(
+                lang.OK,
+                style: TextStyle(
+                    color: Colors.white, fontSize: 25.sp),
+              ),
+            )
+          ],
+        ).show();
+      }
+        });
   }
 }

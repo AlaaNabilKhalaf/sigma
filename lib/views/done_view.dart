@@ -28,7 +28,8 @@ class DoneView extends StatelessWidget {
             ),
             GestureDetector(
                 onTap: (){
-                 cubit.cleanControllersFunctions();
+                  cubit.cleanCacheID();
+                  cubit.cleanControllersFunctions();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
                 },
                 child: CustomButtonChild(title: lang.DONE, fontSize: 30, width: 250, height: 60))

@@ -24,14 +24,25 @@ class NewPasswordConVisibilityChanged extends LayoutStates{}
 // Login Method States
 class LoginLoadingState extends LayoutStates{}
 class LoginSuccessState extends LayoutStates{}
-class LoginFailureState extends LayoutStates{}
+class LoginFailureState extends LayoutStates{
+  String massage ;
+  LoginFailureState({required this.massage});
+}
+class LoginCatchFailureState extends LayoutStates{}
 
 // Reset Password Method States
 class ResetPasswordLoadingState extends LayoutStates{}
 class ResetPasswordSuccessState extends LayoutStates{}
-class ResetPasswordFailureState extends LayoutStates{}
+class ResetPasswordFailureState extends LayoutStates{
+  String massage;
+  ResetPasswordFailureState({required this.massage});
+}
+class ResetPasswordCatchFailureState extends LayoutStates{}
+
+//Logout Stats
 class UserIsLoggingOutState extends LayoutStates{}
 class ControllersAreCleanState extends LayoutStates{}
+class CleanCacheID extends LayoutStates{}
 
 
 //Languages

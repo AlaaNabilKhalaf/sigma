@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sigma/constance.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
 import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
-
+import '../../../constance/colors.dart';
 import '../../../generated/l10n.dart';
 import '../sheared_widgets/custom_text.dart';
 
@@ -17,8 +16,8 @@ class CustomLoginContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
+    final cubit = BlocProvider.of<LayoutCubit>(context);
     return BlocConsumer<LayoutCubit , LayoutStates>(builder: (context , state ){
-      final cubit = BlocProvider.of<LayoutCubit>(context);
       return Container(
         height: MediaQuery.of(context).size.height*0.4,
         width: MediaQuery.of(context).size.width,
@@ -47,32 +46,14 @@ class CustomLoginContainer extends StatelessWidget {
                         if (cubit.loginPasswordController.text.isNotEmpty &&
                             cubit.uniEmailController.text.isNotEmpty)
                         {
-                          try{
                             await cubit.login(
                                 uniEmail: cubit.uniEmailController.text,
                                 password: cubit.loginPasswordController.text);
-                          }catch (e) {
-                            cubit.loginMassage =lang.SomethingWentWrong;
-                          }
-                          if (cubit.loginMassage == "Logged in successfully")
-                          {
-                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              duration: const Duration(seconds: 1),
-                              content: Center(child: Text(cubit.loginMassage!)),
-                            ));
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomeView()));
-                          }
-                          else {
-                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Center(child: Text(cubit.loginMassage!)),
-                            ));
-                          }
                         }
                         else {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: primeColor1,
                             content: Center(
                                 child: Text(
                                     lang.LoginValidationMassage)),
@@ -81,7 +62,7 @@ class CustomLoginContainer extends StatelessWidget {
                       },
 
                     child: CustomButtonChild(
-                        title: lang.Login,
+                        title: state is LoginLoadingState ? lang.Loading : lang.Login,
                         fontSize: cubit.isEnglish()? 30 : 23,
                         width: 180,
                         height: 60,
@@ -93,6 +74,34 @@ class CustomLoginContainer extends StatelessWidget {
           ),
         ),
       );
-    }, listener: (context , state){});
+    }, listener: (context , state){
+      if(state is LoginSuccessState){
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: primeColor1,
+          duration: const Duration(seconds: 1),
+          content: Center(child: Text(cubit.loginMassage!)),
+        ));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomeView()));
+      }
+      if(state is LoginFailureState){
+        Navigator.pop(context);
+        showDialog(context: context, builder: (context)=> AlertDialog(
+          content: Text(state.massage),
+        ));
+      }
+      if(state is LoginLoadingState){
+        showDialog(context: context, builder: (context)=> AlertDialog(
+          content: Text(lang.Loading),
+        ));
+      }
+      if(state is LoginCatchFailureState){
+        Navigator.pop(context);
+        showDialog(context: context, builder: (context)=> AlertDialog(
+          content: Text(lang.SomethingWentWrong),
+        ));
+      }
+    });
   }
 }

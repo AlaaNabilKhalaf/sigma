@@ -290,10 +290,10 @@ class S {
     );
   }
 
-  /// `Something went wrong .. please try again`
+  /// `Something went wrong .. please try again later`
   String get SomethingWentWrong {
     return Intl.message(
-      'Something went wrong .. please try again',
+      'Something went wrong .. please try again later',
       name: 'SomethingWentWrong',
       desc: '',
       args: [],
@@ -305,6 +305,16 @@ class S {
     return Intl.message(
       'Logout',
       name: 'LogOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading..`
+  String get Loading {
+    return Intl.message(
+      'Loading..',
+      name: 'Loading',
       desc: '',
       args: [],
     );

@@ -23,8 +23,9 @@
     "DONE" : "DONE",
     "Error" : "Something went wrong try again",
     "NewPasswordsDoNotMatch" : "Your New Passwords Don't Match",
-    "SomethingWentWrong":  "Something went wrong .. please try again",
-    "LogOut" : "Logout"
+    "SomethingWentWrong":  "Something went wrong .. please try again later",
+    "LogOut" : "Logout",
+    "Loading" : "Loading.."
 
 
 }

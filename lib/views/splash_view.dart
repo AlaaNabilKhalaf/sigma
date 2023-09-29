@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/login_view.dart';
-
-import '../constances/id.dart';
+import '../constance/cache_data.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -21,7 +19,7 @@ startTime();
     super.initState();
   }
 startTime() async {
-  Future.delayed(const Duration(seconds:3),(){
+  Future.delayed(const Duration(seconds:2),(){
 
     Navigator.pushReplacement(
         context,

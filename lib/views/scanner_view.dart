@@ -5,7 +5,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:convert';
 import 'package:http/http.dart ' as http;
 import 'package:http/http.dart%20';
-import '../constance.dart';
+import '../constance/colors.dart';
 import '../generated/l10n.dart';
 
 class QrScanner extends StatefulWidget {

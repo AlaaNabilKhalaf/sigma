@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/splash_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'constances/id.dart';
+import 'constance/cache_data.dart';
 import 'cubit/bloc_observer/bloc_observer.dart';
 import 'cubit/layout_cubit/layout_cubit.dart';
 import 'cubit/layout_cubit/layout_states.dart';
@@ -17,7 +16,6 @@ void main() async {
   Bloc.observer = MyBlocObserver();
 await CacheNetwork.cacheInitialization();
 id = CacheNetwork.getCacheId(key: "student_id");
-print("id isssssssssssssssssssssssss : $id");
   runApp(const MyApp());
 }
 

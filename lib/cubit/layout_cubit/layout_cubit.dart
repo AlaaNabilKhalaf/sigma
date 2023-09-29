@@ -58,39 +58,45 @@ class LayoutCubit extends Cubit<LayoutStates> {
   Future<void> login({
     required String uniEmail,
     required String password,
-  }) async {
-    emit(LoginLoadingState());
-    Response response = await http.post(
-        Uri.parse(
-            'https://sigma.ebdaa-business.com/api/mobile_api/student_login'),
-        body: {
-          'university_email': uniEmail,
-          'password': password
-        },
-        headers: {
-          'accept': 'application/json',
-          'User': 'admin',
-          'apikey': 'apikey',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        });
-    Map<String, dynamic> data = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      loginMassage = data["message"];
-      userId = data["student_id"];
+  })
 
-     await CacheNetwork.insertToValueID(
-        key: 'student_id',
-        value: data['student_id'],
-      );
-     await CacheNetwork.insertToValueName(
-          key: "student_name",
-          value: data["student_name"]);
-      theKey = 'student_id';
-      emit(LoginSuccessState());
-    } else {
-      loginMassage = "${data["message"]}";
-      emit(LoginFailureState());
-    }
+  async {
+    emit(LoginLoadingState());
+   try{
+     Response response = await http.post(
+         Uri.parse(
+             'https://sigma.ebdaa-business.com/api/mobile_api/student_login'),
+         body: {
+           'university_email': uniEmail,
+           'password': password
+         },
+         headers: {
+           'accept': 'application/json',
+           'User': 'admin',
+           'apikey': 'apikey',
+           'Content-Type': 'application/x-www-form-urlencoded'
+         });
+     Map<String, dynamic> data = jsonDecode(response.body);
+     if (response.statusCode == 200) {
+       loginMassage = data["message"];
+       userId = data["student_id"];
+
+       await CacheNetwork.insertToValueID(
+         key: 'student_id',
+         value: data['student_id'],
+       );
+       theKey = 'student_id';
+       emit(LoginSuccessState(
+
+       ));
+     } else {
+       emit(LoginFailureState(
+           massage: "${data["message"]}"
+       ));
+     }
+   }catch(e){
+     emit(LoginCatchFailureState());
+   }
   }
 
 // Reset Password Method Items
@@ -99,28 +105,33 @@ class LayoutCubit extends Cubit<LayoutStates> {
   Future<void> resetPassword(
       {required String oldPassword, required String newPassword}) async {
     emit(ResetPasswordLoadingState());
+try{
 
-    Response response = await http.post(
-        Uri.parse(
-            'https://sigma.ebdaa-business.com/api/mobile_api/change_password?student_id=$userId'),
-        body: {
-          'old_password': oldPassword,
-          'new_password': newPassword,
-        },
-        headers: {
-          'accept': 'application/json',
-          'User': 'admin',
-          'apikey': 'apikey',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        });
-    Map<String, dynamic> data = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      passMassage = data["message"];
-      emit(ResetPasswordSuccessState());
-    } else {
-      passMassage = data["message"];
-      emit(ResetPasswordFailureState());
-    }
+  Response response = await http.post(
+      Uri.parse(
+          'https://sigma.ebdaa-business.com/api/mobile_api/change_password?student_id=$userId'),
+      body: {
+        'old_password': oldPassword,
+        'new_password': newPassword,
+      },
+      headers: {
+        'accept': 'application/json',
+        'User': 'admin',
+        'apikey': 'apikey',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+  Map<String, dynamic> data = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    passMassage = data["message"];
+    emit(ResetPasswordSuccessState());
+  } else {
+    emit(ResetPasswordFailureState(
+        massage: data["message"]
+    ));
+  }
+}catch(e){
+  emit(ResetPasswordCatchFailureState());
+}
   }
 
 
@@ -153,6 +164,12 @@ class LayoutCubit extends Cubit<LayoutStates> {
   }
 
   // Logout Methods
+
+  cleanCacheID  ()
+  async{
+    await  CacheNetwork.deleteCacheItem(key: "student_id");
+  emit(CleanCacheID());
+  }
 
   logoutFunction() async {
     loginPasswordController.text = "";

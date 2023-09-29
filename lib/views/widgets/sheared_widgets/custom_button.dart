@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sigma/constance.dart';
-
+import '../../../constance/colors.dart';
 import 'custom_text.dart';
 
 class CustomButtonChild extends StatelessWidget {

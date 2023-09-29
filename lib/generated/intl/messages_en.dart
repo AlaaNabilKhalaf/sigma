@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Something went wrong try again"),
         "GoToLogin": MessageLookupByLibrary.simpleMessage("Go To Login"),
         "LangLab": MessageLookupByLibrary.simpleMessage("العربية"),
+        "Loading": MessageLookupByLibrary.simpleMessage("Loading.."),
         "LogOut": MessageLookupByLibrary.simpleMessage("Logout"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "LoginPassword": MessageLookupByLibrary.simpleMessage("Password"),
@@ -54,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ResetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "ScanACode": MessageLookupByLibrary.simpleMessage("Scan a Code!"),
         "SomethingWentWrong": MessageLookupByLibrary.simpleMessage(
-            "Something went wrong .. please try again"),
+            "Something went wrong .. please try again later"),
         "UniEmail": MessageLookupByLibrary.simpleMessage("Universtiy Email"),
         "UniEmailHint":
             MessageLookupByLibrary.simpleMessage("Enter Your Email"),

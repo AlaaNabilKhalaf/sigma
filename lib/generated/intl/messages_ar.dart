@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "GoToLogin":
             MessageLookupByLibrary.simpleMessage("الانتقال إلى تسجيل الدخول"),
         "LangLab": MessageLookupByLibrary.simpleMessage("English"),
+        "Loading": MessageLookupByLibrary.simpleMessage("انتظر.."),
         "LogOut": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
         "Login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "LoginPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور"),

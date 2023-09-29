@@ -24,7 +24,8 @@
   "DONE" : "تم",
   "NewPasswordsDoNotMatch" : "كلمات المرور الجديدة غير متطابقة",
   "SomethingWentWrong":  "خطا .. من فضلك حاول مجددا",
-  "LogOut" : "تسجيل خروج"
+  "LogOut" : "تسجيل خروج",
+  "Loading" : "انتظر.."
 
 
 }
