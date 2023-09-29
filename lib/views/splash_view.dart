@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/login_view.dart';
-import '../constance/cache_data.dart';
+
+import '../sheared/constance/cache_data.dart';
+
+
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);

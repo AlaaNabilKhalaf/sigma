@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/home_view.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
-import '../../../constance/colors.dart';
 import '../../../generated/l10n.dart';
-import '../sheared_widgets/custom_text.dart';
+import '../../../sheared/constance/colors.dart';
+import '../../../sheared/widgets/custom_button.dart';
+import '../../../sheared/widgets/custom_text.dart';
+import '../../../sheared/widgets/custom_text_field.dart';
+
 
 class CustomLoginContainer extends StatelessWidget {
   const CustomLoginContainer({super.key});
@@ -54,6 +55,7 @@ class CustomLoginContainer extends StatelessWidget {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: primeColor1,
+                            duration: const Duration(seconds: 1),
                             content: Center(
                                 child: Text(
                                     lang.LoginValidationMassage)),
@@ -77,7 +79,6 @@ class CustomLoginContainer extends StatelessWidget {
     }, listener: (context , state){
       if(state is LoginSuccessState){
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: primeColor1,
           duration: const Duration(seconds: 1),
@@ -88,20 +89,25 @@ class CustomLoginContainer extends StatelessWidget {
       if(state is LoginFailureState){
         Navigator.pop(context);
         showDialog(context: context, builder: (context)=> AlertDialog(
-          content: Text(state.massage),
+          backgroundColor: primeColor2,
+          titleTextStyle:  const TextStyle(color: Colors.white , fontFamily: "Cairo" ,),
+          title: Text(state.massage),
         ));
       }
       if(state is LoginLoadingState){
         showDialog(context: context, builder: (context)=> AlertDialog(
-          content: Text(lang.Loading),
-        ));
-      }
+    backgroundColor: primeColor2,
+    titleTextStyle:  const TextStyle(color: Colors.white , fontFamily: "Cairo" ,),
+    title: Text(lang.Loading),
+    ));
       if(state is LoginCatchFailureState){
         Navigator.pop(context);
         showDialog(context: context, builder: (context)=> AlertDialog(
-          content: Text(lang.SomethingWentWrong),
+          backgroundColor: primeColor2,
+          titleTextStyle:  const TextStyle(color: Colors.white , fontFamily: "Cairo" ,),
+          title: Text(lang.SomethingWentWrong),
         ));
       }
-    });
+    }});
   }
 }

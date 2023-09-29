@@ -5,8 +5,9 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:convert';
 import 'package:http/http.dart ' as http;
 import 'package:http/http.dart%20';
-import '../constance/colors.dart';
 import '../generated/l10n.dart';
+import '../sheared/constance/colors.dart';
+
 
 class QrScanner extends StatefulWidget {
  const QrScanner({super.key, required this.userId,});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constance/colors.dart';
+import '../constance/colors.dart';
 
 
 class CustomTextField extends StatelessWidget {

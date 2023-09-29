@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sigma/sheared/constance/cache_data.dart';
 import 'package:sigma/views/splash_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'constance/cache_data.dart';
 import 'cubit/bloc_observer/bloc_observer.dart';
 import 'cubit/layout_cubit/layout_cubit.dart';
 import 'cubit/layout_cubit/layout_states.dart';
@@ -16,6 +16,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
 await CacheNetwork.cacheInitialization();
 id = CacheNetwork.getCacheId(key: "student_id");
+savedLocal = CacheNetwork.getCacheData(key: 'current_lang');
   runApp(const MyApp());
 }
 
@@ -39,32 +40,85 @@ class MyApp extends StatelessWidget {
         ],
     // BlocConsumer is used to access the data in the called cubit.
         child: BlocConsumer<LayoutCubit , LayoutStates>(
-          listener: (context , state ){},
+          listener: (context , state ){
+            if(state is LanguageChangingLoading){
+              showDialog(context: context, builder: (context)=>
+                  AlertDialog(
+                content: Text(S.of(context).Loading),
+              ));
+            }
+          },
           builder: (context , state){
-            final cubit = BlocProvider.of<LayoutCubit>(context);
-
             // ScreenUtilInit is creating the app responsiveness
-            return ScreenUtilInit(
-              designSize: const Size(390, 844),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              builder: (context, child) {
+         if(state is LanguageChangedToArabic){
+           return ScreenUtilInit(
+             designSize: const Size(390, 844),
+             minTextAdapt: true,
+             splitScreenMode: true,
+             builder: (context, child) {
 
-            // MaterialApp is the root of my app.
-                return  MaterialApp(
-                  locale:cubit.myCurrentLang,
-                  localizationsDelegates: const [
-                    S.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: const [Locale('en'), Locale('ar')],
-                  debugShowCheckedModeBanner: false,
-                  home: const SplashView(),
-                );
-              },
-            );
+               // MaterialApp is the root of my app.
+               return const MaterialApp(
+                 locale: Locale("ar"),
+                 localizationsDelegates: [
+                   S.delegate,
+                   GlobalMaterialLocalizations.delegate,
+                   GlobalWidgetsLocalizations.delegate,
+                   GlobalCupertinoLocalizations.delegate,
+                 ],
+                 supportedLocales:  [Locale('en'), Locale('ar')],
+                 debugShowCheckedModeBanner: false,
+                 home:  SplashView(),
+               );
+             },
+           );
+                 }
+         if(state is LanguageChangedToEnglish){
+           return ScreenUtilInit(
+             designSize: const Size(390, 844),
+             minTextAdapt: true,
+             splitScreenMode: true,
+             builder: (context, child) {
+
+               // MaterialApp is the root of my app.
+               return const MaterialApp(
+                 locale: Locale("en"),
+                 localizationsDelegates:[
+                   S.delegate,
+                   GlobalMaterialLocalizations.delegate,
+                   GlobalWidgetsLocalizations.delegate,
+                   GlobalCupertinoLocalizations.delegate,
+                 ],
+                 supportedLocales:  [Locale('en'), Locale('ar')],
+                 debugShowCheckedModeBanner: false,
+                 home: SplashView(),
+               );
+             },
+           );
+         }
+         else{
+           return ScreenUtilInit(
+             designSize: const Size(390, 844),
+             minTextAdapt: true,
+             splitScreenMode: true,
+             builder: (context, child) {
+
+               // MaterialApp is the root of my app.
+               return  MaterialApp(
+                 locale: savedLocal != null && savedLocal != "" ? Locale(savedLocal!) : const Locale("en"),
+                 localizationsDelegates: const [
+                   S.delegate,
+                   GlobalMaterialLocalizations.delegate,
+                   GlobalWidgetsLocalizations.delegate,
+                   GlobalCupertinoLocalizations.delegate,
+                 ],
+                 supportedLocales: const [Locale('en'), Locale('ar')],
+                 debugShowCheckedModeBanner: false,
+                 home: const SplashView(),
+               );
+             },
+           );
+         }
           },
         )
     );

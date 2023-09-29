@@ -4,12 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/login_view.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_upper_container.dart';
-import 'package:sigma/views/widgets/sheared_widgets/some_custom_icons.dart';
-
 import '../generated/l10n.dart';
-
+import '../sheared/widgets/custom_button.dart';
+import '../sheared/widgets/custom_upper_container.dart';
+import '../sheared/widgets/some_custom_icons.dart';
 class DoneView extends StatelessWidget {
   const DoneView({super.key});
 
@@ -32,7 +30,7 @@ class DoneView extends StatelessWidget {
                   cubit.cleanControllersFunctions();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
                 },
-                child: CustomButtonChild(title: lang.DONE, fontSize: 30, width: 250, height: 60))
+                child:  CustomButtonChild(title: lang.DONE, fontSize: 30, width: 250, height: 60))
           ],
         ),
       );

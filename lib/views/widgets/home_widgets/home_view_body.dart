@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sigma/constance/cache_data.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/scanner_view.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_upper_container.dart';
-import 'package:sigma/views/widgets/sheared_widgets/some_custom_icons.dart';
 import '../../../generated/l10n.dart';
+import '../../../sheared/constance/cache_data.dart';
+import '../../../sheared/widgets/custom_button.dart';
+import '../../../sheared/widgets/custom_upper_container.dart';
+import '../../../sheared/widgets/some_custom_icons.dart';
+
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});

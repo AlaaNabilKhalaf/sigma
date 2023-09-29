@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/login_view.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_text.dart';
-import '../../../constance/colors.dart';
-import '../../../generated/l10n.dart';
-import '../../reset_password_view.dart';
+import '../../../../generated/l10n.dart';
+import '../../views/reset_password_view.dart';
+import '../constance/colors.dart';
+import 'custom_text.dart';
 
 class LanguageIcon extends StatelessWidget {
   const LanguageIcon({super.key});

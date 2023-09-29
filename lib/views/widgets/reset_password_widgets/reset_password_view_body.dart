@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/done_view.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_button.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_text.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_text_field.dart';
-import 'package:sigma/views/widgets/sheared_widgets/custom_upper_container.dart';
-import 'package:sigma/views/widgets/sheared_widgets/some_custom_icons.dart';
-
-import '../../../constance/colors.dart';
 import '../../../generated/l10n.dart';
+import '../../../sheared/constance/colors.dart';
+import '../../../sheared/widgets/custom_button.dart';
+import '../../../sheared/widgets/custom_text.dart';
+import '../../../sheared/widgets/custom_text_field.dart';
+import '../../../sheared/widgets/custom_upper_container.dart';
+import '../../../sheared/widgets/some_custom_icons.dart';
 
 class ResetPasswordViewBody extends StatelessWidget {
   const ResetPasswordViewBody({super.key});
@@ -95,52 +93,30 @@ class ResetPasswordViewBody extends StatelessWidget {
       }
       if(state is ResetPasswordLoadingState){
         showDialog(context: context, builder: (context)=> AlertDialog(
-          content: Text(lang.Loading),
+          backgroundColor: primeColor2,
+          titleTextStyle:  const TextStyle(color: Colors.white , fontFamily: "Cairo" ,),
+          title: Text(lang.Loading),
         ));
       }
       if(state is ResetPasswordFailureState){
         Navigator.pop(context);
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        Alert(
-          context: context,
-          type: AlertType.warning,
-          title: lang.OPS,
-          desc: state.massage,
-          buttons: [
-            DialogButton(
-              color: primeColor1,
-              onPressed: () => Navigator.pop(context),
-              width: 125.w,
-              child: Text(
-                lang.OK,
-                style: TextStyle(
-                    color: Colors.white, fontSize: 25.sp),
-              ),
-            )
-          ],
-        ).show();
+        showDialog(context: context, builder: (context)=>
+            AlertDialog(
+          backgroundColor: primeColor2,
+          titleTextStyle:  const TextStyle(color: Colors.white , fontFamily: "Cairo" ,),
+         title: Text(state.massage),
+        ));
+
       }
       if(state is ResetPasswordCatchFailureState){
         Navigator.pop(context);
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        Alert(
-          context: context,
-          type: AlertType.error,
-          title: lang.OPS,
-          desc: lang.SomethingWentWrong,
-          buttons: [
-            DialogButton(
-              color: primeColor1,
-              onPressed: () => Navigator.pop(context),
-              width: 125.w,
-              child: Text(
-                lang.OK,
-                style: TextStyle(
-                    color: Colors.white, fontSize: 25.sp),
-              ),
-            )
-          ],
-        ).show();
+        showDialog(context: context, builder: (context)=> AlertDialog(
+          backgroundColor: primeColor2,
+          titleTextStyle:  const TextStyle(color: Colors.white , fontFamily: "Cairo" ,),
+          title: Text(lang.SomethingWentWrong),
+        ));
       }
         });
   }

@@ -12,10 +12,12 @@ class CacheNetwork{
     required int value , }) async {
     return await sharedPref.setInt(key , value );
   }
+
   static Future<bool> insertToValueName ({required String key,
     required String value , }) async {
     return await sharedPref.setString(key , value );
   }
+
 
   static Future<bool> insertToValueLange ({required String key,
     required String value , }) async {
@@ -29,6 +31,7 @@ class CacheNetwork{
   static int getCacheId ({required String key}){
     return sharedPref.getInt(key) ?? 0 ;
   }
+
   static Future<bool> deleteCacheItem ({required String key}) async {
     return await sharedPref.remove(key);
   }

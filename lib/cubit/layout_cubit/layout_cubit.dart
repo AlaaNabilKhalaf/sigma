@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../local_network/local_network.dart';
 import 'layout_states.dart';
 import 'package:http/http.dart%20';
@@ -137,28 +136,30 @@ try{
 
 // Localizations Items
   String theLangKey = 'current_lang' ;
-  Locale myCurrentLang = const Locale("en") ;
+  Locale currentLang = const Locale("en") ;
 
   bool isEnglish() {
     return Intl.getCurrentLocale() == 'en';
   }
 
-  changeLocale(){
-    if(myCurrentLang == const Locale('ar')){
-      myCurrentLang = const Locale('en');
-      CacheNetwork.insertToValueLange(
+  changeLocale() async {
+    emit(LanguageChangingLoading());
+    if(currentLang == const Locale('ar')){
+      currentLang = const Locale('en');
+      await CacheNetwork.deleteCacheItem(key: 'current_lang');
+      await CacheNetwork.insertToValueLange(
         key: 'current_lang',
         value: 'en',
       );
       emit(LanguageChangedToEnglish());
-    }else{
-      myCurrentLang = const Locale('ar');
-      CacheNetwork.insertToValueLange(
+    } else {
+      currentLang = const Locale('ar');
+      await CacheNetwork.deleteCacheItem(key: 'current_lang');
+      await CacheNetwork.insertToValueLange(
         key: 'current_lang',
         value: 'ar',
       );
       emit(LanguageChangedToArabic());
-
     }
 
   }
@@ -174,8 +175,8 @@ try{
   logoutFunction() async {
     loginPasswordController.text = "";
     uniEmailController.text = "" ;
-    SharedPreferences sharedPref = await SharedPreferences.getInstance();
-    sharedPref.remove('student_id');
+    // SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    // sharedPref.remove('student_id');
     emit(UserIsLoggingOutState());
   }
 

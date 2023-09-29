@@ -49,6 +49,7 @@ class CleanCacheID extends LayoutStates{}
 class LanguageChangedToArabic extends LayoutStates{}
 class LanguageChangedToEnglish extends LayoutStates{}
 class LanguageIsEnglish extends LayoutStates{}
+class LanguageChangingLoading extends LayoutStates{}
 
 
 // Controllers
