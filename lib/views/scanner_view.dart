@@ -12,6 +12,7 @@ class QrScanner extends StatefulWidget {
  const QrScanner({super.key, required this.userId,});
   final int userId;
 
+
   @override
   State<QrScanner> createState() => _QrScannerState();
 }
@@ -95,9 +96,9 @@ class _QrScannerState extends State<QrScanner> {
     setState(
           () => this.controller = controller,
     );
-    controller.scannedDataStream.listen((barcode) {
+    controller.scannedDataStream.listen((myBarcode) {
       setState(() {
-        barcode = barcode;
+        barcode = myBarcode;
         qrGenerator();
       });
     });

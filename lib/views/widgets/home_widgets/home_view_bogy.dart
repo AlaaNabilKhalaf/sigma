@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sigma/constance/cache_data.dart';
 import 'package:sigma/cubit/layout_cubit/layout_cubit.dart';
 import 'package:sigma/cubit/layout_cubit/layout_states.dart';
 import 'package:sigma/views/scanner_view.dart';
@@ -36,7 +37,11 @@ class HomeViewBody extends StatelessWidget {
                   SizedBox(height: 10.h,),
                   GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> QrScanner(userId: cubit.userId!)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                            QrScanner(
+                                userId: id !=null && id != 0 ? id! : cubit.userId!
+
+                            )));
                       },
                       child: CustomButtonChild(title: lang.QrScanner, fontSize:cubit.isEnglish() ? 30 : 28 , width: 250.w, height: 56)),
                 ],
