@@ -152,7 +152,7 @@ try{
         value: 'en',
       );
       emit(LanguageChangedToEnglish());
-    } else {
+    } else if(currentLang == const Locale("en")){
       currentLang = const Locale('ar');
       await CacheNetwork.deleteCacheItem(key: 'current_lang');
       await CacheNetwork.insertToValueLange(

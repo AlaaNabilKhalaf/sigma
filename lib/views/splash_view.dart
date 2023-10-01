@@ -22,11 +22,12 @@ startTime();
     super.initState();
   }
 startTime() async {
-  Future.delayed(const Duration(seconds:2),(){
+  Future.delayed(const Duration(milliseconds: 900),(){
 
     Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context)=>  id != null && id != 0 ? const HomeView() : const LoginView()));
+        MaterialPageRoute(builder: (context)=>  id != null && id != 0 ? const HomeView() : const LoginView()
+        ));
 
 
   });

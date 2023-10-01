@@ -16,22 +16,25 @@ class DoneView extends StatelessWidget {
     final lang = S.of(context);
     return BlocConsumer<LayoutCubit , LayoutStates>(builder: (context , state){
       final cubit = BlocProvider.of<LayoutCubit>(context);
-      return Scaffold(
-        body: Column(
-          children: [
-            const CustomUpperContainer(langIcon: LanguageIcon(), navigatorIcon: NavigatorIcon()),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 80.w),
-              child: Image.asset("assets/images/undraw_completed_03xt (1) 1.png"),
-            ),
-            GestureDetector(
-                onTap: (){
-                  cubit.cleanCacheID();
-                  cubit.cleanControllersFunctions();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
-                },
-                child:  CustomButtonChild(title: lang.DONE, fontSize: 30, width: 250, height: 60))
-          ],
+      return WillPopScope(
+        onWillPop: () async { return false; },
+        child: Scaffold(
+          body: Column(
+            children: [
+              const CustomUpperContainer(langIcon: LanguageIcon(), navigatorIcon: NavigatorIcon()),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 80.w),
+                child: Image.asset("assets/images/undraw_completed_03xt (1) 1.png"),
+              ),
+              GestureDetector(
+                  onTap: (){
+                    cubit.cleanCacheID();
+                    cubit.cleanControllersFunctions();
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginView()));
+                  },
+                  child:  CustomButtonChild(title: lang.DONE, fontSize: 30, width: 250, height: 60))
+            ],
+          ),
         ),
       );
     },

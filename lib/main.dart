@@ -40,14 +40,7 @@ class MyApp extends StatelessWidget {
         ],
     // BlocConsumer is used to access the data in the called cubit.
         child: BlocConsumer<LayoutCubit , LayoutStates>(
-          listener: (context , state ){
-            if(state is LanguageChangingLoading){
-              showDialog(context: context, builder: (context)=>
-                  AlertDialog(
-                content: Text(S.of(context).Loading),
-              ));
-            }
-          },
+          listener: (context , state ){},
           builder: (context , state){
             // ScreenUtilInit is creating the app responsiveness
          if(state is LanguageChangedToArabic){
@@ -58,7 +51,7 @@ class MyApp extends StatelessWidget {
              builder: (context, child) {
 
                // MaterialApp is the root of my app.
-               return const MaterialApp(
+               return  const MaterialApp(
                  locale: Locale("ar"),
                  localizationsDelegates: [
                    S.delegate,
@@ -66,9 +59,9 @@ class MyApp extends StatelessWidget {
                    GlobalWidgetsLocalizations.delegate,
                    GlobalCupertinoLocalizations.delegate,
                  ],
-                 supportedLocales:  [Locale('en'), Locale('ar')],
+                 supportedLocales: [Locale('en'), Locale('ar')],
                  debugShowCheckedModeBanner: false,
-                 home:  SplashView(),
+                 home: SplashView(),
                );
              },
            );
@@ -83,13 +76,13 @@ class MyApp extends StatelessWidget {
                // MaterialApp is the root of my app.
                return const MaterialApp(
                  locale: Locale("en"),
-                 localizationsDelegates:[
+                 localizationsDelegates: [
                    S.delegate,
                    GlobalMaterialLocalizations.delegate,
                    GlobalWidgetsLocalizations.delegate,
                    GlobalCupertinoLocalizations.delegate,
                  ],
-                 supportedLocales:  [Locale('en'), Locale('ar')],
+                 supportedLocales: [Locale('en'), Locale('ar')],
                  debugShowCheckedModeBanner: false,
                  home: SplashView(),
                );
@@ -114,7 +107,7 @@ class MyApp extends StatelessWidget {
                  ],
                  supportedLocales: const [Locale('en'), Locale('ar')],
                  debugShowCheckedModeBanner: false,
-                 home: const SplashView(),
+                 home:  const SplashView(),
                );
              },
            );
