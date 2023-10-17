@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/views/home_view.dart';
 import 'package:sigma/views/login_view.dart';
-
 import '../sheared/constance/cache_data.dart';
 
 
@@ -22,11 +21,11 @@ startTime();
     super.initState();
   }
 startTime() async {
-  Future.delayed(const Duration(milliseconds: 900),(){
+  Future.delayed(const Duration(seconds: 1),(){
 
     Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context)=>  id != null && id != 0 ? const HomeView() : const LoginView()
+        MaterialPageRoute(builder: (context)=>  id != null && id != "" ? const HomeView() : const LoginView()
         ));
 
 

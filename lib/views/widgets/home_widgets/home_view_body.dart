@@ -40,7 +40,7 @@ class HomeViewBody extends StatelessWidget {
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>
                             QrScanner(
-                                userId: id !=null && id != 0 ? id! : cubit.userId!
+                                userId: id !=null && id != "" ? id! : cubit.userId!
 
                             )));
                       },

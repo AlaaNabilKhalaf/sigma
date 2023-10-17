@@ -15,7 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 await CacheNetwork.cacheInitialization();
-id = CacheNetwork.getCacheId(key: "student_id");
+id = CacheNetwork.getCacheData(key: "student_id");
 savedLocal = CacheNetwork.getCacheData(key: 'current_lang');
   runApp(const MyApp());
 }
@@ -38,10 +38,12 @@ class MyApp extends StatelessWidget {
             create: (context) => LayoutCubit(),
           ),
         ],
+
     // BlocConsumer is used to access the data in the called cubit.
         child: BlocConsumer<LayoutCubit , LayoutStates>(
           listener: (context , state ){},
           builder: (context , state){
+
             // ScreenUtilInit is creating the app responsiveness
          if(state is LanguageChangedToArabic){
            return ScreenUtilInit(

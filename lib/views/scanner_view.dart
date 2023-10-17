@@ -5,13 +5,14 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:convert';
 import 'package:http/http.dart ' as http;
 import 'package:http/http.dart%20';
+import 'package:sigma/views/home_view.dart';
 import '../generated/l10n.dart';
 import '../sheared/constance/colors.dart';
 
 
 class QrScanner extends StatefulWidget {
  const QrScanner({super.key, required this.userId,});
-  final int userId;
+  final String userId;
 
 
   @override
@@ -74,7 +75,7 @@ class _QrScannerState extends State<QrScanner> {
     try {
       Response response = await http.post(
           Uri.parse(
-              'https://sigma.ebdaa-business.com/api/mobile_api/add_attendance?lecture_id=${lecId(barcode!.code.toString())}&student_id=${widget.userId}'),
+              'https://sigma.ebdaa-business.com/api/mobile_api/add_attendance?lecture_id=${barcode!.code.toString()}&student_id=${widget.userId}'),
           headers: {
             'accept': 'application/json',
             'User': 'admin',
@@ -87,12 +88,6 @@ class _QrScannerState extends State<QrScanner> {
     }
   }
 
-  String lecId(String s) {
-    String s = barcode!.code.toString();
-    String id = s.replaceAll(RegExp('[^0-9]'), '');
-    return id;
-  }
-
   void onQRViewCreated(QRViewController controller) {
     setState(
           () => this.controller = controller,
@@ -102,6 +97,8 @@ class _QrScannerState extends State<QrScanner> {
         barcode = myBarcode;
         qrGenerator();
       });
+        controller.pauseCamera();
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeView()));
     });
   }
 
@@ -167,16 +164,27 @@ class _QrScannerState extends State<QrScanner> {
   catchFun(){
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: primeColor1,
       duration: const Duration(seconds: 3),
       content: Center(child: Text(S.of(context).Error)),
     ));
   }
 
-  tryFun(String text){
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 2),
-      content: Center(child: Text(text)),
-    ));
-  }
+  tryFun(String text) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: primeColor1,
+        duration: const Duration(seconds: 3),
+        content: Center(child: Text(text)),
+      ));
+
+    }
+
 }
+
+//
+// String lecId(String s) {
+//   String s = barcode!.code.toString();
+//   String id = s.replaceAll(RegExp('[^0-9]'), '');
+//   return id;
+// }

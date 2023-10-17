@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Not Used yet
 class CacheNetwork{
   static late SharedPreferences sharedPref;
   static Future cacheInitialization() async {
@@ -8,9 +7,10 @@ class CacheNetwork{
   }
 
 //set , get , delete , clear ( key , value )
+
   static Future<bool> insertToValueID ({required String key,
-    required int value , }) async {
-    return await sharedPref.setInt(key , value );
+    required String value , }) async {
+    return await sharedPref.setString(key , value );
   }
 
   static Future<bool> insertToValueName ({required String key,
@@ -28,9 +28,9 @@ class CacheNetwork{
   }
 
 
-  static int getCacheId ({required String key}){
-    return sharedPref.getInt(key) ?? 0 ;
-  }
+  // static int getCacheId ({required String key}){
+  //   return sharedPref.getInt(key) ?? 0 ;
+  // }
 
   static Future<bool> deleteCacheItem ({required String key}) async {
     return await sharedPref.remove(key);

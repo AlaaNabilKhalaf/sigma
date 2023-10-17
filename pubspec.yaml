@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: null
   flutter_localizations:
     sdk: flutter
+  sse_channel: ^0.0.3
 
 dev_dependencies:
   flutter_test:

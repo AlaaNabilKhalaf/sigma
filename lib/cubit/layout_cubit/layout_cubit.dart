@@ -49,7 +49,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
   //ApI Methods
 
 // Login Method Items
-  int? userId;
+  String? userId;
   String? loginMassage;
   String? theKey;
   String? oldPassword;
